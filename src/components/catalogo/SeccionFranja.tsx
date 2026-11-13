@@ -28,12 +28,6 @@ export function SeccionFranja({ franja, talleres, espera, onAnotar }: Props) {
           {franja.titulo}
         </h2>
         <p className="mt-1 max-w-lg font-semibold">{franja.lema}</p>
-        <code
-          aria-hidden="true"
-          className="pointer-events-none absolute right-5 top-5 hidden font-mono text-xs opacity-70 md:block"
-        >
-          {franja.codigo}
-        </code>
       </div>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

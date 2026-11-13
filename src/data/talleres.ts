@@ -22,8 +22,6 @@ export interface FranjaInfo {
   /** Color del texto que va sobre `color`, elegido por contraste. */
   tinta: string;
   lema: string;
-  /** Código decorativo, solo visual. */
-  codigo: string;
 }
 
 export type Estado = "con-lugar" | "ultimos" | "completo";
@@ -41,7 +39,6 @@ export const FRANJAS: FranjaInfo[] = [
     color: "#F59A23",
     tinta: "#24263A",
     lema: "Primeros pasos: bloques de colores, robots y mucha imaginación.",
-    codigo: "al tocar ▶ { avanzar(3) }",
   },
   {
     id: "8-11",
@@ -49,7 +46,6 @@ export const FRANJAS: FranjaInfo[] = [
     color: "#2FB47C",
     tinta: "#24263A",
     lema: "Crear juegos, animaciones y robots que responden.",
-    codigo: "si (toca borde) { rebotar() }",
   },
   {
     id: "12-15",
@@ -57,7 +53,6 @@ export const FRANJAS: FranjaInfo[] = [
     color: "#4C5FD5",
     tinta: "#FFFFFF",
     lema: "Escribir código de verdad y mostrar lo que hacen.",
-    codigo: "for paso in range(10): print(paso)",
   },
 ];
 
