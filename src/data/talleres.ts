@@ -26,7 +26,7 @@ export interface FranjaInfo {
 
 export type Estado = "con-lugar" | "ultimos" | "completo";
 
-export const NOMBRE_ESPACIO = "Taller de Progra";
+export const NOMBRE_ESPACIO = "Taller de Programación";
 
 // Número de WhatsApp del espacio en formato internacional, sin "+" ni espacios.
 // TODO: reemplazar por el número real antes de publicar.

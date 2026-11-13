@@ -80,13 +80,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Taller de Progra" },
+      { title: "Taller de Programación" },
       {
         name: "description",
         content: "Talleres de programación por edades para chicas y chicos de 5 a 15 años.",
       },
-      { name: "author", content: "Taller de Progra" },
-      { property: "og:title", content: "Taller de Progra" },
+      { name: "author", content: "Taller de Programación" },
+      { property: "og:title", content: "Taller de Programación" },
       {
         property: "og:description",
         content: "Talleres de programación por edades para chicas y chicos de 5 a 15 años.",
