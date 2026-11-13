@@ -14,22 +14,12 @@
 /*
  * Design system definition.
  *
- * The design lives in this file: oklch color tokens on the shadcn variables
- * (--background, --foreground, --primary, --secondary, --muted, --accent, ...) plus
- * new tokens as needed, font tokens, and custom styles and animations.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Paleta del catálogo: fondo #FAFAF5, texto #24263A, azul #4C5FD5, naranja #F59A23,
+ * verde #2FB47C, rosa #E5487B. Los tokens de abajo están en oklch.
  */
 
 @theme inline {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -73,39 +63,39 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 0.75rem;
+  --background: oklch(0.984 0.008 106.5);
+  --foreground: oklch(0.276 0.036 279);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.276 0.036 279);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.276 0.036 279);
+  --primary: oklch(0.533 0.17 271);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.955 0.01 106.5);
+  --secondary-foreground: oklch(0.276 0.036 279);
+  --muted: oklch(0.955 0.01 106.5);
+  --muted-foreground: oklch(0.45 0.03 279);
+  --accent: oklch(0.955 0.01 106.5);
+  --accent-foreground: oklch(0.276 0.036 279);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.9 0.01 279);
+  --input: oklch(0.9 0.01 279);
+  --ring: oklch(0.533 0.17 271);
+  --chart-1: oklch(0.533 0.17 271);
+  --chart-2: oklch(0.75 0.16 65);
+  --chart-3: oklch(0.68 0.14 160);
+  --chart-4: oklch(0.63 0.19 0);
+  --chart-5: oklch(0.276 0.036 279);
+  --sidebar: oklch(0.984 0.008 106.5);
+  --sidebar-foreground: oklch(0.276 0.036 279);
+  --sidebar-primary: oklch(0.533 0.17 271);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.955 0.01 106.5);
+  --sidebar-accent-foreground: oklch(0.276 0.036 279);
+  --sidebar-border: oklch(0.9 0.01 279);
+  --sidebar-ring: oklch(0.533 0.17 271);
 }
 
 .dark {
@@ -148,8 +138,54 @@
     border-color: var(--color-border);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/*
+ * Bloques encastrables (inspirados en la programación por bloques, sin copiar ninguno).
+ * La tarjeta usa --bloque como color de su franja: borde, "encastre" arriba y base abajo.
+ */
+.bloque {
+  position: relative;
+  background-color: oklch(1 0 0);
+  border: 2px solid var(--bloque);
+  border-radius: 14px;
+  box-shadow: 0 4px 0 0 var(--bloque);
+}
+
+.bloque::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 24px;
+  width: 40px;
+  height: 9px;
+  background-color: var(--bloque);
+  border-radius: 0 0 9px 9px;
+}
+
+/* Título de sección: la pestaña de abajo "encaja" con las tarjetas. */
+.bloque-titulo::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 24px;
+  width: 40px;
+  height: 10px;
+  background-color: inherit;
+  border-radius: 0 0 10px 10px;
 }
