@@ -1,9 +1,10 @@
-# Taller de Progra · Catálogo de talleres por edades
+# Taller de Programación · Catálogo de talleres por edades
 
 Catálogo de talleres de programación para que las familias encuentren rápido la actividad de su hijo o hija, consulten por WhatsApp o se anoten en lista de espera cuando el taller está lleno.
 
+- **App publicada (Vercel):** https://tallerde-progra-vivir-125.vercel.app
 - **Editor (Lovable):** https://lovable.dev/projects/f1a29f44-1de4-49f6-8174-12979b4f4099
-- **Previsualización:** https://id-preview--f1a29f44-1de4-49f6-8174-12979b4f4099.lovable.app
+- **Previsualización de Lovable:** https://id-preview--f1a29f44-1de4-49f6-8174-12979b4f4099.lovable.app
 - **Repositorio:** https://github.com/Archu1707/blank-canvas
 
 ## Qué hace
@@ -40,9 +41,9 @@ Una sola página, sin login, sin filtros y sin buscador.
 | Python para Curiosos | 12-15 | 1 | Últimos lugares |
 | Videojuegos en 2D | 12-15 | 3 | Con lugar |
 
-Herramienta, día, hora, duración, precio, entregable y lugares totales son **valores de ejemplo**: ajustalos en ese archivo si el briefing trae otros.
+Herramienta, día, hora, duración, precio, entregable y lugares totales son **valores de ejemplo**: se ajustan en ese mismo archivo.
 
-El número de WhatsApp está en `WHATSAPP_NUMERO` (mismo archivo), en formato internacional sin `+` (por ejemplo `59899123456`). **Hay que reemplazarlo por el número real.**
+El número de WhatsApp está en `WHATSAPP_NUMERO` (mismo archivo), en formato internacional sin `+`.
 
 ### Lista de espera (`src/lib/espera.ts`)
 
@@ -58,30 +59,38 @@ El número de WhatsApp está en `WHATSAPP_NUMERO` (mismo archivo), en formato in
 ## Diseño
 
 - Fondo claro `#FAFAF5`, texto `#24263A`, paleta `#4C5FD5`, `#F59A23`, `#2FB47C`, `#E5487B`.
-- Tarjetas como **bloques encastrables** (pestaña arriba, base abajo, en el color de la franja), formas geométricas y código decorativo. Inspirado en la programación por bloques sin copiar ningún diseño existente.
+- Tarjetas como **bloques encastrables** (pestaña arriba, base abajo, en el color de la franja), formas geométricas y una línea de código decorativo en la cabecera. Inspirado en la programación por bloques sin copiar ningún diseño existente.
+- Favicon propio (`public/favicon.svg`): un bloque con `< >`.
 - Tipografía Nunito. Tono curioso y simple, sin jerga técnica.
-- Una columna en móvil (probado para 360 px de ancho), dos en tablet y tres en escritorio.
+- Una columna en móvil, dos en tablet y tres en escritorio.
 
 ## Criterios de aceptación
 
-| Criterio | Dónde se cumple |
-| --- | --- |
-| Los 8 talleres aparecen en su sección de edad correcta | `TALLERES` + `SeccionFranja`; test «tiene los 8 talleres en su franja» |
-| Los 3 botones hacen scroll a su sección sin recargar | `Cabecera` (`scrollIntoView`, sin navegación) |
-| Con lugar → botón WhatsApp con el nombre del taller | `TarjetaTaller` + `lib/whatsapp.ts`; test del enlace |
-| 0 lugares → «Completo» y formulario en vez del botón | `TarjetaTaller` |
-| Anotarse sube el contador en 1; rechaza repetidos (trim + minúsculas) | `anotarEnEspera`; tests |
-| Anotar no altera `lugaresLibres` | `anotarEnEspera`; test |
-| Guardar primero, éxito después; si falla, conserva lo escrito | `anotarEnEspera` + `FormularioEspera`; test |
-| Persiste al recargar; usable a 360 px | `localStorage` + layout responsive |
-| README y URL de previsualización | Este archivo |
+Verificados en la app publicada en Vercel el 13/11/2026.
+
+| Criterio | Cómo se comprobó | Resultado |
+| --- | --- | --- |
+| Los 8 talleres aparecen en su sección de edad correcta | Lectura de las 3 secciones: 2 + 3 + 3 talleres en su franja | ✅ |
+| Los 3 botones hacen scroll a su sección sin recargar | Clic en cada botón: la sección queda arriba y la página no se recarga | ✅ |
+| Con lugar → botón WhatsApp con el nombre del taller en el mensaje | Los 6 talleres con lugar tienen enlace `wa.me` con su nombre | ✅ |
+| 0 lugares → «Completo» y formulario en vez del botón | Robots de Piso y Robótica micro:bit | ✅ |
+| Anotarse sube el contador en 1 | 3 → 4 familias en espera | ✅ |
+| Rechaza correo repetido en ese taller (trim + minúsculas) | `  PRUEBA.Criterios@Example.COM  ` rechazado | ✅ |
+| Anotar no altera `lugaresLibres` | Sigue «0 lugares libres de 6» | ✅ |
+| Guardar primero, éxito después; si `localStorage` falla, conserva lo escrito | Guardado forzado a fallar: error, correo conservado, datos intactos | ✅ |
+| Lista vacía ≠ primera visita | Con `[]` guardado, los contadores quedan en 0 y no se resiembra | ✅ |
+| Lista de espera persiste al recargar | Tras recargar sigue en 4 | ✅ |
+| Usable en móvil de 360 px | Sin scroll horizontal ni elementos desbordados; botones de 36 px de alto | ✅ |
+| README completo y URL de previsualización funcionando | Este archivo + https://tallerde-progra-vivir-125.vercel.app | ✅ |
+
+También hay tests automáticos de datos y lista de espera en `src/test/espera.test.ts` (`bun run test`).
 
 ## Stack
 
 - **Lovable:** editor y previsualización. Los cambios hechos en Lovable se suben a este repo y los de `main` vuelven a Lovable.
 - **GitHub:** este repositorio.
 - **Supabase:** cliente listo en `src/integrations/supabase/client.ts` (proyecto `wtboeqyvoxoiwzuyzwuf`). Esta versión no lo usa: la lista de espera vive en `localStorage`, como pide el briefing.
-- **Vercel:** publicación (ver abajo).
+- **Vercel:** publicación en https://tallerde-progra-vivir-125.vercel.app. Cada push a `main` despliega solo (Vercel detecta TanStack Start sin configuración extra).
 - TanStack Start + React 19 + TypeScript + Tailwind CSS v4 + Vite.
 
 ## Correr en local
@@ -99,15 +108,10 @@ Tests:
 bun run test  # o npm test
 ```
 
-## Publicar en Vercel
-
-1. En Vercel: **Add New → Project** e importar `Archu1707/blank-canvas`.
-2. Build command `npm run build` (Vercel lo detecta). Variables opcionales: `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY`.
-3. Cada push a `main` genera un deploy nuevo.
-
 ## Estructura
 
 ```
+public/favicon.svg                 # icono de la pestaña
 src/
   data/talleres.ts                 # talleres, franjas, estado, número de WhatsApp
   lib/espera.ts                    # lista de espera (localStorage)
