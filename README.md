@@ -1,6 +1,6 @@
-# Taller de Programación · Catálogo de talleres por edades
+# App de administración de talleres por edades
 
-Catálogo de talleres de programación para que las familias encuentren rápido la actividad de su hijo o hija, consulten por WhatsApp o se anoten en lista de espera cuando el taller está lleno.
+Catálogo de talleres de programación para que las familias encuentren rápido la actividad de su hijo o hija, consulten por WhatsApp o se anoten en lista de espera cuando el taller está lleno. La página se presenta al público como **Taller de Programación**.
 
 - **App publicada (Vercel):** https://tallerde-progra-vivir-125.vercel.app
 - **Editor (Lovable):** https://lovable.dev/projects/f1a29f44-1de4-49f6-8174-12979b4f4099
@@ -87,7 +87,7 @@ También hay tests automáticos de datos y lista de espera en `src/test/espera.t
 
 ## Stack
 
-- **Lovable:** editor y previsualización. Los cambios hechos en Lovable se suben a este repo y los de `main` vuelven a Lovable.
+- **Lovable:** proyecto «App de administración de talleres por edades», editor y previsualización. Los cambios hechos en Lovable se suben a este repo y los de `main` vuelven a Lovable.
 - **GitHub:** este repositorio.
 - **Supabase:** cliente listo en `src/integrations/supabase/client.ts` (proyecto `wtboeqyvoxoiwzuyzwuf`). Esta versión no lo usa: la lista de espera vive en `localStorage`, como pide el briefing.
 - **Vercel:** publicación en https://tallerde-progra-vivir-125.vercel.app. Cada push a `main` despliega solo (Vercel detecta TanStack Start sin configuración extra).
