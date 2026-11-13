@@ -75,13 +75,10 @@ function Index() {
       </main>
 
       <footer className="mx-auto max-w-5xl border-t border-[#24263A]/10 px-4 pb-12 pt-6 text-sm">
-        <p className="text-[#24263A]/70">
-          La lista de espera se guarda solo en este navegador. Los datos son de ejemplo.
-        </p>
         <button
           type="button"
           onClick={restaurar}
-          className="mt-2 font-semibold text-[#4C5FD5] underline underline-offset-4 hover:text-[#24263A]"
+          className="font-semibold text-[#4C5FD5] underline underline-offset-4 hover:text-[#24263A]"
         >
           Restaurar datos sintéticos
         </button>
