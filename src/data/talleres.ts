@@ -28,9 +28,9 @@ export type Estado = "con-lugar" | "ultimos" | "completo";
 
 export const NOMBRE_ESPACIO = "Taller de Programación";
 
-// Número de WhatsApp del espacio en formato internacional, sin "+" ni espacios.
-// TEMPORAL: número personal solo para pruebas. Quitar antes de la entrega.
-export const WHATSAPP_NUMERO = "34675410429";
+// Número de WhatsApp del catálogo de prueba (ficticio), en formato internacional sin "+".
+// Para usar el catálogo de verdad, reemplazarlo por el número del espacio.
+export const WHATSAPP_NUMERO = "59899000000";
 
 export const FRANJAS: FranjaInfo[] = [
   {

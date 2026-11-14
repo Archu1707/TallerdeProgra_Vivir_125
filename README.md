@@ -5,7 +5,9 @@ Catálogo de talleres de programación para que las familias encuentren rápido 
 - **App publicada (Vercel):** https://tallerde-progra-vivir-125.vercel.app
 - **Editor (Lovable):** https://lovable.dev/projects/f1a29f44-1de4-49f6-8174-12979b4f4099
 - **Previsualización de Lovable:** https://id-preview--f1a29f44-1de4-49f6-8174-12979b4f4099.lovable.app
-- **Repositorio:** https://github.com/Archu1707/blank-canvas
+- **Repositorio:** https://github.com/Archu1707/TallerdeProgra_Vivir_125
+
+> **Todo funciona en el navegador.** No hay backend, base de datos ni servicios de terceros: los talleres están escritos en el código y la lista de espera se guarda en el `localStorage` del navegador de quien la usa.
 
 ## Qué hace
 
@@ -24,6 +26,29 @@ Una sola página, sin login, sin filtros y sin buscador.
 - **Completo:** formulario «Anotarme en lista de espera» (correo + «Avisarme si se libera un lugar») y contador «X familias en espera».
 - **Pie de página:** «Restaurar datos sintéticos» devuelve la lista de espera a su estado inicial.
 
+## Qué está simulado
+
+Esta entrega es un catálogo de prueba. Estas partes no son reales:
+
+| Parte | Cómo está simulada | Dónde se cambia |
+| --- | --- | --- |
+| **Talleres** | Los 8 talleres están escritos en el código. Los nombres, franjas y lugares libres salen del briefing; herramienta, día, hora, duración, precio, entregable y lugares totales son **valores de ejemplo**. Los lugares libres no cambian solos. | `src/data/talleres.ts` |
+| **Lista de espera** | Se guarda solo en el `localStorage` de cada navegador. No viaja a ningún servidor: otra persona u otro dispositivo no ven las mismas anotaciones. | `src/lib/espera.ts` |
+| **Familias en espera de ejemplo** | La primera visita carga 5 anotaciones sintéticas (3 en Robots de Piso y 2 en Robótica micro:bit) con correos `@example.com`, que no existen. | `ESPERA_SEMILLA` en `src/lib/espera.ts` |
+| **«Avisarme si se libera un lugar»** | Solo guarda el correo en la lista. No se envía ningún correo ni aviso. | — |
+| **WhatsApp** | El botón abre un enlace `wa.me` con el mensaje ya escrito, pero el número (`59899000000`) es **ficticio**. No hay integración con la API de WhatsApp: el mensaje lo envía la familia desde su propia app. | `WHATSAPP_NUMERO` en `src/data/talleres.ts` |
+
+## Cómo reiniciar los datos de prueba
+
+La lista de espera arranca en su estado inicial (3 familias en Robots de Piso y 2 en Robótica micro:bit). Para volver a ese estado:
+
+1. **Desde la app:** bajar al pie de página y pulsar **«Restaurar datos sintéticos»**. Se borran las anotaciones nuevas, vuelven las de ejemplo y aparece el aviso «Listo: la lista de espera volvió a sus datos de ejemplo.» No hace falta recargar.
+2. **Desde el navegador:** abrir las herramientas de desarrollo (F12) → **Application** (Aplicación) → **Local Storage** → la URL de la app, borrar la clave `taller-progra:lista-espera:v1` y recargar. Al no encontrar la clave, la app vuelve a cargar los datos de ejemplo como en una primera visita.
+
+Si la clave existe pero tiene una lista vacía (`[]`), la app la respeta y **no** vuelve a cargar los ejemplos: una lista vacía no es una primera visita.
+
+Los talleres y sus lugares libres no se reinician porque no cambian: están fijos en `src/data/talleres.ts`.
+
 ## Datos
 
 ### Talleres (`src/data/talleres.ts`)
@@ -41,15 +66,11 @@ Una sola página, sin login, sin filtros y sin buscador.
 | Python para Curiosos | 12-15 | 1 | Últimos lugares |
 | Videojuegos en 2D | 12-15 | 3 | Con lugar |
 
-Herramienta, día, hora, duración, precio, entregable y lugares totales son **valores de ejemplo**: se ajustan en ese mismo archivo.
-
-El número de WhatsApp está en `WHATSAPP_NUMERO` (mismo archivo), en formato internacional sin `+`.
-
 ### Lista de espera (`src/lib/espera.ts`)
 
 `EsperaEntry = { taller, correo, fecha }`, guardada en `localStorage` con la clave `taller-progra:lista-espera:v1`.
 
-- **Semilla:** se escribe solo si esa clave no existe (primera visita). Una lista vacía guardada (`[]`) se respeta y no se vuelve a sembrar. Los correos de prueba son `@example.com`.
+- **Semilla:** se escribe solo si esa clave no existe (primera visita). Una lista vacía guardada (`[]`) se respeta y no se vuelve a sembrar.
 - **Sin repetidos:** el correo se normaliza (espacios fuera + minúsculas) y no se puede repetir en el mismo taller. Sí puede anotarse en otro taller.
 - **Guardar primero, mostrar éxito después:** el mensaje de «¡Listo!» y el contador nuevo aparecen solo si el guardado funcionó.
 - **Si `localStorage` falla** (modo privado, bloqueado, lleno): se muestra un error, el correo escrito queda en el campo y no se cambia ningún dato.
@@ -66,7 +87,7 @@ El número de WhatsApp está en `WHATSAPP_NUMERO` (mismo archivo), en formato in
 
 ## Criterios de aceptación
 
-Verificados en la app publicada en Vercel el 13/11/2026.
+Verificados en la app publicada en Vercel.
 
 | Criterio | Cómo se comprobó | Resultado |
 | --- | --- | --- |
@@ -87,17 +108,16 @@ También hay tests automáticos de datos y lista de espera en `src/test/espera.t
 
 ## Stack
 
+- **TanStack Start + React 19 + TypeScript + Tailwind CSS v4 + Vite.** Sin backend, sin base de datos y sin servicios de terceros en la app.
 - **Lovable:** proyecto «App de administración de talleres por edades», editor y previsualización. Los cambios hechos en Lovable se suben a este repo y los de `main` vuelven a Lovable.
 - **GitHub:** este repositorio.
-- **Supabase:** cliente listo en `src/integrations/supabase/client.ts` (proyecto `wtboeqyvoxoiwzuyzwuf`). Esta versión no lo usa: la lista de espera vive en `localStorage`, como pide el briefing.
 - **Vercel:** publicación en https://tallerde-progra-vivir-125.vercel.app. Cada push a `main` despliega solo (Vercel detecta TanStack Start sin configuración extra).
-- TanStack Start + React 19 + TypeScript + Tailwind CSS v4 + Vite.
 
 ## Correr en local
 
 ```sh
-git clone https://github.com/Archu1707/blank-canvas.git
-cd blank-canvas
+git clone https://github.com/Archu1707/TallerdeProgra_Vivir_125.git
+cd TallerdeProgra_Vivir_125
 bun install   # o npm install
 bun run dev   # o npm run dev
 ```
@@ -113,8 +133,8 @@ bun run test  # o npm test
 ```
 public/favicon.svg                 # icono de la pestaña
 src/
-  data/talleres.ts                 # talleres, franjas, estado, número de WhatsApp
-  lib/espera.ts                    # lista de espera (localStorage)
+  data/talleres.ts                 # talleres, franjas, estado, número de WhatsApp (ficticio)
+  lib/espera.ts                    # lista de espera (localStorage) y datos de ejemplo
   lib/whatsapp.ts                  # mensaje y enlace de WhatsApp
   components/catalogo/
     Cabecera.tsx                   # nombre + botones ancla
